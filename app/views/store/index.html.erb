@@ -1,0 +1,29 @@
+<% if notice %>
+	<p id="notice"><%= notice %></p>
+<% end %>
+
+
+<% @products.each do |product| %>
+	<div class="row">
+		<h3><%= product.title %></h3>
+		<div class="col-md-4">
+			<%= image_tag(product.image_url, class: "img-thumbnail", size: "200x200") %>
+		</div>
+		<div class="col-md-6">
+			<%= sanitize(product.description) %></br>
+			Вид:
+			<% if product.tea %>
+				<%= product.tea.teatype %>
+			<% else if product.coffe%>
+				<%= product.coffe.coffetype %>
+			<% end %>
+			<% end %>
+		</div>
+		<div class="col-md-2">
+			<h3><%= number_to_currency(product.price) %></h3>
+			<%= button_to 'Добавить в корзину', line_items_path(product_id: product), class: "btn btn-info btn-block" %>
+		</div>
+	</div>
+	</br>
+<% end %>
+
